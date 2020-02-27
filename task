@@ -1,0 +1,91 @@
+pipeline 
+{
+    agent any
+    options
+    {
+        timestamps()
+    }
+    //parametrs {    // I did the same, but through the web face.
+    //    string(name: 'list', defaultValue: '', description 'List of inits to operate')
+    //}
+    stages 
+    {
+        stage('FirstStage') 
+        {
+            steps 
+            {
+                script 
+                {
+                    def LL = params.list.split(" ")
+                    def size = LL.size()
+                    if (size < 3)
+                    {
+                        error('Too small :(')
+                    }
+                    LL.each
+                    {
+                        try
+                        {
+                            it = it.toInteger()
+                            
+                        }
+                        catch(Exception e)
+                        {
+                            error('Not a number')
+                        }
+                    }
+                    def size_fin = size
+                    for(i = 0; i < size-1; ++i)
+                    {
+                        def flag = false
+                        for(j = i+1; j < size; ++j)
+                        {
+                            if(LL[i] == null)
+                            {
+                                break
+                            }
+                            if(LL[i] == LL[j])
+                            {
+                                LL[j] = null
+                                flag = true
+                                --size_fin
+                            }
+                        }
+                        if(flag)
+                        {
+                            LL[i] = null
+                            --size_fin
+                        }
+                    }
+                    if (size_fin < 3)
+                    {
+                        error('Too small :(')
+                    }
+                    def fin = new String[size_fin]
+                    def k = 0
+                    LL.each
+                    {
+                        if(it != null)
+                        {
+                            fin[k] = it
+                            ++k
+                        }
+                    }
+                    for (i = 0; i < size_fin-1; ++i)
+                    {
+                        for (j = 0; j < size_fin-i-1; ++j)
+                        {
+                            if (fin[j] > fin[j+1])
+                            {
+                                def temp = fin[j];  
+                                fin[j+1] = fin[j];  
+                                fin[j] = temp
+                            }
+                        }
+                    }
+                    println (fin[size_fin-1] + ' ' + fin[size_fin-2] + ' ' + fin[size_fin-3])
+                }
+            }
+        }
+    }
+}
