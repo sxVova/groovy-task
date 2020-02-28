@@ -78,8 +78,8 @@ pipeline
                             if (fin[j] > fin[j+1])
                             {
                                 def temp = fin[j];  
-                                fin[j+1] = fin[j];  
-                                fin[j] = temp
+                                fin[j] = fin[j + 1];  
+                                fin[j + 1] = temp
                             }
                         }
                     }
