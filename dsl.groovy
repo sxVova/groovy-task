@@ -1,3 +1,5 @@
+import groovy.json.JsonSlurper
+
 def giturl = 'https://github.com/quidryan/aws-sdk-test.git'
 for(i in 0..0){
     job("DSL-Yutorial-1-Test-${i}"){
