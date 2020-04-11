@@ -34,3 +34,10 @@ jobB.with{
         github('example-jenkins/project-a')
     }
 }
+
+jenkins.model.Jenkins.theInstance.getProjects().each { job ->
+    if (!job.name.contains('project-')) {
+        println job.name
+        job.delete()
+    }
+}
