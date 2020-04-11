@@ -36,7 +36,7 @@ jobB.with{
 }
 
 jenkins.model.Jenkins.theInstance.getProjects().each { job ->
-    if (!job.name.contains('project-')) {
+    if (!job.name.contains('bootstrap')) {
         println job.name
         job.delete()
     }
