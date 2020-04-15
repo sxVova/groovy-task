@@ -1,4 +1,4 @@
-ob('antbuild') {
+job('antbuild') {
     scm {
         github('tetradev01/demoapp', 'master')
     }
